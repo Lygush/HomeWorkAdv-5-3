@@ -1,41 +1,37 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
+#include <list>
 
 class Functor_test {
     int sum{};
     int count{};
-    std::vector<int>(vector);
 public:
-    Functor_test(std::vector<int>(vec)) : vector(vec) {};
-
-    bool operator()(int& val) {
+    void operator()(int& val) {
         if (val % 3 == 0) {
-            return true;
+            sum += val;
+            count++;
         }
-        return false;
     }
 
     int get_sum() {
-        for (auto i: vector) {
-             if (operator()(i)) {
-                sum += i;
-             };
-        }
         return sum;
     }
 
     int get_value() {
-        for (auto i: vector) {
-             if (operator()(i)) {
-                count++;
-             };
-        }
     return count;
     }
 };
 
 int main() {
-    Functor_test ft(std::vector<int>{2,3,6,9,10,23,7,12,9});
+    std::vector<int> vec { 4,1,3,6,25,54 };
+    Functor_test ft;
+    ft = std::for_each(vec.begin(), vec.end(), ft);
     std::cout << ft.get_sum() << std::endl;
-    std::cout << ft.get_value();
+    std::cout << ft.get_value() << std::endl;
+
+    std::list<int> list {4,3,56,7,65,443,234,54,33,76,1,0,9,88,7,65};
+    ft = std::for_each(list.begin(), list.end(), ft);
+    std::cout << ft.get_sum() << std::endl;
+    std::cout << ft.get_value() << std::endl;
 }
